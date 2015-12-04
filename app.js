@@ -664,21 +664,23 @@ if (geo_props) {
 					console.log("statusCode: ", res.statusCode);
 				 
 					res.on('data', function(d) {
-						console.log(route + ' result:\n');
-						process.stdout.write(d);
-						var result = JSON.parse(d.toString());
-						console.log("\n" + route + ' completed');
-						console.log("statusCode: ", res.statusCode);
-						console.log("result:\n", result);
-						if (res.statusCode != 200) {
-							response.send(res.statusCode, "<h1>"+route+" failed with code: "+res.statusCode+"</h1>");
-						} else {
-							if (route == "/GeospatialService_status") {
-								response.send(res.statusCode, result);
+						try {
+							console.log(route + ' result:\n');
+							process.stdout.write(d);
+							var result = JSON.parse(d.toString());
+							console.log("\n" + route + ' completed');
+							console.log("statusCode: ", res.statusCode);
+							console.log("result:\n", result);
+							if (res.statusCode != 200) {
+								response.send(res.statusCode, "<h1>"+route+" failed with code: "+res.statusCode+"</h1>");
 							} else {
-								response.send(res.statusCode, "<h1>"+route+" succeeded!</h1><pre>" + JSON.stringify(result, null, 4) + "</pre>");
+								if (route == "/GeospatialService_status") {
+									response.send(res.statusCode, result);
+								} else {
+									response.send(res.statusCode, "<h1>"+route+" succeeded!</h1><pre>" + JSON.stringify(result, null, 4) + "</pre>");
+								}
 							}
-						}
+						} catch (e) { console.error(e); response.send(500, { error: "parse error: " + route }); }
 					});
 					if (res.statusCode != 200) {
 						runError = 1;
