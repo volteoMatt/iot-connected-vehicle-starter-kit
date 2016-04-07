@@ -84,7 +84,14 @@
 		<button type="button" id="propButton">Update Property</button>
 	</body>
 	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript">
+		// obtain IoT Foundation API key for MQTT client connection
+		// NOTE: this information should be secured in regular deployment
+		$.get("/credentials", function(response) {
+			window.config = response;
+			connect();
+		});
+	</script>
 	<script type="text/javascript" src="js/mqttws31.js"></script>
-	<script type="text/javascript" src="../config/settings.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
 </html>

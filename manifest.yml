@@ -1,9 +1,9 @@
 applications:
-- host: <your app host>
+- host: geospacial_demo
   disk: 128M
-  name: <your app name>
+  name: geospacial_demo
   command: node app.js
   path: .
   domain: mybluemix.net
   memory: 128M
-  instances: 1
+  instances: 3

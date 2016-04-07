@@ -70,13 +70,20 @@ var Places = {
 			lat: 36.11460
 		}, 
 		defaultZoom: 15
+	}),
+	BEAVERTON: new Place("Beaverton", {
+		center: {
+			lon: -122.87551, 
+			lat: 45.484739
+		}, 
+		defaultZoom: 15
 	})
 }
 
 var defaults = {
 	locale: "en",
 	mapType: "osm", 
-	mapLocation: Places.AUSTIN,
+	mapLocation: Places.BEAVERTON,
 }
 
 var Images = {
@@ -130,6 +137,7 @@ function setStrings() {
 }
 
 function init() {
+
 	console.log("init()");
 	setStrings();
 

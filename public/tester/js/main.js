@@ -14,20 +14,21 @@
  *   Bryan Boyd - Initial implementation 
  *******************************************************************************/
 
-iot_server = window.config.iot_deviceOrg + ".messaging.internetofthings.ibmcloud.com";
-iot_port = 1883;
-iot_username = window.config.iot_apiKey;
-iot_password = window.config.iot_apiToken;
-iot_clientid = "a:"+window.config.iot_deviceOrg+":tester" + Math.floor(Math.random() * 1000); 
+function connect() {
+	iot_server = window.config.iot_deviceOrg + ".messaging.internetofthings.ibmcloud.com";
+	iot_port = 1883;
+	iot_username = window.config.iot_apiKey;
+	iot_password = window.config.iot_apiToken;
+	iot_clientid = "a:"+window.config.iot_deviceOrg+":tester" + Math.floor(Math.random() * 1000); 
 
-client = new Messaging.Client(iot_server, iot_port, iot_clientid);
+	client = new Messaging.Client(iot_server, iot_port, iot_clientid);
 
-client.connect({
-	userName: iot_username,
-	password: iot_password,
-	onSuccess: function() { $("body").append("<br><br><i>Connected to IoT Foundation!</i><br><div id='statusMessage'></div>") }
-});
-
+	client.connect({
+		userName: iot_username,
+		password: iot_password,
+		onSuccess: function() { $("body").append("<br><br><i>Connected to IoT Foundation!</i><br><div id='statusMessage'></div>") }
+	});
+}
 $("#button").on("click", function() {
 	var id = $("#id").val();
 	var message = $("#message").val();

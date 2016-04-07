@@ -119,7 +119,7 @@ You next will generate an API key for your organization.  An API key provides cr
           instances: 3
 
 
-* All configuration for IoT Foundation is found in [public/config/settings.js](https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/public/config/settings.js).  This file is shared by the Node.js vehicle simulator and the Map and Tester apps, and stores all device tokens and API keys.
+* All configuration for IoT Foundation is found in [config/settings.js](https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/config/settings.js).  This file stores all device tokens and API keys.
 
   * For **iot_deviceType**, enter **vehicle**
   * For **iot_deviceOrg**, enter your 6-character organization ID (ex: **o4ze1w**)
@@ -208,35 +208,35 @@ The application can be extended with the Bluemix Geospatial Service and [Node-RE
 
 [MQTT]:http://mqtt.org
 [Iot Foundation]:http://internetofthings.ibmcloud.com
-[pic messaging]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/messaging.png
-[pic iot 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot1.png
-[pic iot 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot2.png
-[pic iot 3]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot3.png
-[pic iot 4]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot4.png
-[pic iot 5]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot5.png
-[pic iot 6]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot6.png
-[pic iot 7]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot7.png
-[pic iot 8]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/iot8.png
-[pic config 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/config1.png
-[pic map 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/map1.png
-[pic vehicle count 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/vehicle_count1.png
-[pic vehicle count 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/vehicle_count2.png
-[pic set property 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/set_property1.png
-[pic add overlay 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/add_overlay1.png
-[pic set property 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/set_property2.png
-[pic geospatial 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/geospatial1.png
-[pic geospatial 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/geospatial2.png
-[pic geospatial 3]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/geospatial3.png
-[pic geospatial 4]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/geospatial4.png
-[pic node red 0]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red0.png
-[pic node red 1 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red1_1.png
-[pic node red 1 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red1_2.png
-[pic node red 1 3]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red1_3.png
-[pic node red 2 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red2_1.png
-[pic node red 2 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red2_2.png
-[pic node red 2 3]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red2_3.png
-[pic node red 2 4]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red2_4.png
-[pic node red 3 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red3_1.png
-[pic node red 3 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red3_2.png
-[pic node red 3 1]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red4_1.png
-[pic node red 4 2]:https://github.com/ibm-messaging/iot-connected-vehicle-starter-kit/blob/master/docs/node_red4_2.png
+[pic messaging]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/messaging.png
+[pic iot 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot1.png
+[pic iot 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot2.png
+[pic iot 3]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot3.png
+[pic iot 4]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot4.png
+[pic iot 5]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot5.png
+[pic iot 6]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot6.png
+[pic iot 7]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot7.png
+[pic iot 8]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/iot8.png
+[pic config 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/config1.png
+[pic map 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/map1.png
+[pic vehicle count 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/vehicle_count1.png
+[pic vehicle count 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/vehicle_count2.png
+[pic set property 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/set_property1.png
+[pic add overlay 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/add_overlay1.png
+[pic set property 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/set_property2.png
+[pic geospatial 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/geospatial1.png
+[pic geospatial 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/geospatial2.png
+[pic geospatial 3]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/geospatial3.png
+[pic geospatial 4]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/geospatial4.png
+[pic node red 0]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red0.png
+[pic node red 1 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red1_1.png
+[pic node red 1 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red1_2.png
+[pic node red 1 3]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red1_3.png
+[pic node red 2 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red2_1.png
+[pic node red 2 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red2_2.png
+[pic node red 2 3]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red2_3.png
+[pic node red 2 4]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red2_4.png
+[pic node red 3 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red3_1.png
+[pic node red 3 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red3_2.png
+[pic node red 3 1]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red4_1.png
+[pic node red 4 2]:https://raw.githubusercontent.com/ibm-messaging/iot-connected-vehicle-starter-kit/master/docs/node_red4_2.png

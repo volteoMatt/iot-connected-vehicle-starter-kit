@@ -28,6 +28,8 @@ function MQTTClient(id) {
 	this.client.onConnectionLost = function() { 
 		console.log("disconnected!");
 	}
+
+	defineSubs();
 }
 
 MQTTClient.prototype.connect = function() {
@@ -85,51 +87,53 @@ function Subscription(topic, onMessage) {
 }
 
 var Subscriptions = {};
-Subscriptions.overlays = new Subscription("iot-2/type/api/id/+/cmd/addOverlay/fmt/json", function(msg) {
-	var pattern = "iot-2/type/api/id/[A-Za-z0-9]*/cmd/addOverlay/fmt/json";
-	if (!msg.destinationName.match(pattern)) { return; }
-	try {
-		console.log(msg.payloadString);
-		var data = JSON.parse(msg.payloadString);
-		console.log(data);
-		var id = data.id;
-		var text = data.text;
-		var fgColor = data.fgColor || "black"; 
-		var bgColor = data.bgColor || "rgba(255,255,255,0.9)"; 
-		var duration = data.duration || 3000;
+function defineSubs() {
+	Subscriptions.overlays = new Subscription("iot-2/type/api/id/+/cmd/addOverlay/fmt/json", function(msg) {
+		var pattern = "iot-2/type/api/id/[A-Za-z0-9]*/cmd/addOverlay/fmt/json";
+		if (!msg.destinationName.match(pattern)) { return; }
+		try {
+			console.log(msg.payloadString);
+			var data = JSON.parse(msg.payloadString);
+			console.log(data);
+			var id = data.id;
+			var text = data.text;
+			var fgColor = data.fgColor || "black"; 
+			var bgColor = data.bgColor || "rgba(255,255,255,0.9)"; 
+			var duration = data.duration || 3000;
 
-		var c = demo.getCar(id);
-		if (c) {
-			c.addOverlay(text, duration, bgColor, fgColor);
-		}
-	} catch (e) { console.error(e.message); }
-});
-Subscriptions.geoAlerts = new Subscription(window.config.notifyTopic, function(msg) {
-	if (!msg.destinationName.match(window.config.notifyTopic)) { return; }
-	try {
-		var data = JSON.parse(msg.payloadString);
-		console.log(data);
-		var id = data.deviceInfo.id;
-		var text = data.eventType;
-		var fgColor = "white"; 
-		var bgColor = "rgba(0,0,0,0.8)"; 
-		var duration = 2000;
+			var c = demo.getCar(id);
+			if (c) {
+				c.addOverlay(text, duration, bgColor, fgColor);
+			}
+		} catch (e) { console.error(e.message); }
+	});
+	Subscriptions.geoAlerts = new Subscription(window.config.notifyTopic, function(msg) {
+		if (!msg.destinationName.match(window.config.notifyTopic)) { return; }
+		try {
+			var data = JSON.parse(msg.payloadString);
+			console.log(data);
+			var id = data.deviceInfo.id;
+			var text = data.eventType;
+			var fgColor = "white"; 
+			var bgColor = "rgba(0,0,0,0.8)"; 
+			var duration = 2000;
 
-		var c = demo.getCar(id);
-		if (c) {
-			c.addOverlay(text, duration, bgColor, fgColor);
-		}
-		/*
-		var id = data.id;
-		var text = data.text;
-		var fgColor = data.fgColor || "black"; 
-		var bgColor = data.bgColor || "rgba(255,255,255,0.9)"; 
-		var duration = data.duration || 3000;
+			var c = demo.getCar(id);
+			if (c) {
+				c.addOverlay(text, duration, bgColor, fgColor);
+			}
+			/*
+			var id = data.id;
+			var text = data.text;
+			var fgColor = data.fgColor || "black"; 
+			var bgColor = data.bgColor || "rgba(255,255,255,0.9)"; 
+			var duration = data.duration || 3000;
 
-		var c = demo.getCar(id);
-		if (c) {
-			c.addOverlay(text, duration, bgColor, fgColor);
-		}
-		*/
-	} catch (e) { console.error(e.message); }
-});
+			var c = demo.getCar(id);
+			if (c) {
+				c.addOverlay(text, duration, bgColor, fgColor);
+			}
+			*/
+		} catch (e) { console.error(e.message); }
+	});
+}

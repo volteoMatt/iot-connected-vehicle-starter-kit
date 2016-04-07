@@ -81,11 +81,18 @@
 
 		<script type="text/javascript" src="js/utils/OpenLayers.js"></script>
 		<script type="text/javascript" src="js/utils/jquery-1.9.0.js"></script>
+		<script type="text/javascript">
+			// obtain IoT Foundation API key for MQTT client connection
+			// NOTE: this information should be secured in regular deployment
+			$.get("/credentials", function(response) {
+				window.config = response;
+				console.log(window.config);
+			});
+		</script>
 		<script type="text/javascript" src="js/utils/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/utils/bootstrap-lightbox.min.js"></script>
 		<script type="text/javascript" src="js/utils/mqttws31.js"></script>
 
-		<script type="text/javascript" src="config/settings.js"></script>
 		<script type="text/javascript" src="js/main.js"></script>
 		<script type="text/javascript" src="js/Demo.js"></script>
 		<script type="text/javascript" src="js/UI.js"></script>

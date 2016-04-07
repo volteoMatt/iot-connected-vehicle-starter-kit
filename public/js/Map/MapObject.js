@@ -26,7 +26,9 @@
 function MapObjectSet() {
 	this.objects = {};
 	this.noDeleteOnReset = false;
-	
+}
+
+MapObjectSet.prototype.init = function() {
 	var topic = "iot-2/type/"+window.config.iot_deviceType+"/id/+/evt/telemetry/fmt/json";
 	this.sub = new Subscription(topic, (function(ctx) {
 		return function(message) {

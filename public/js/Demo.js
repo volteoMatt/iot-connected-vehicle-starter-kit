@@ -156,7 +156,9 @@ Demo.prototype.init = function() {
 
 	// add map objects to the demo
 	this.addMapObject("MapGraphs", new MapGraphSet());
-	this.addMapObject("Cars", new MapObjectSet());
+	var carSet = new MapObjectSet();
+	carSet.init();
+	this.addMapObject("Cars", carSet);
 	this.addMapObject("Fence", new FenceSet());
 }
 
