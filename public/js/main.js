@@ -11,7 +11,7 @@
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
- *   Bryan Boyd - Initial implementation 
+ *   Bryan Boyd - Initial implementation
  *******************************************************************************/
 
 function Place(name, options) {
@@ -50,40 +50,26 @@ Place.prototype.getCenter = function() {
 }
 
 var Places = {
-	AUSTIN: new Place("Austin", {
-		center: {
-			lon: -97.74024, 
-			lat: 30.27455
-		}, 
-		defaultZoom: 15
-	}),
-	SANFRANCISCO: new Place("San Francisco", {
-		center: {
-			lon: -122.41581, 
-			lat: 37.77356
-		}, 
-		defaultZoom: 15
-	}),
-	VEGAS: new Place("Las Vegas", {
-		center: {
-			lon: -115.17295, 
-			lat: 36.11460
-		}, 
-		defaultZoom: 15
-	}),
 	BEAVERTON: new Place("Beaverton", {
 		center: {
-			lon: -122.87551, 
+			lon: -122.87551,
 			lat: 45.484739
-		}, 
+		},
 		defaultZoom: 15
+	}),
+	PORTLAND: new Place("Portland", {
+		center: {
+			lon: -122.67496,
+			lat: 45.52780
+		},
+		defaultZoom: 12
 	})
 }
 
 var defaults = {
 	locale: "en",
-	mapType: "osm", 
-	mapLocation: Places.BEAVERTON,
+	mapType: "osm",
+	mapLocation: Places.PORTLAND,
 }
 
 var Images = {
@@ -169,7 +155,8 @@ function init() {
 			if (c.isCountable()) {
 				count++;
 			}
-			if (now - c.lastUpdate > 5000) {
+      // delete if we haven't received an update in 3 minutes
+			if (now - c.lastUpdate > 180000) {
 				toDelete.push(i);
 			}
 		}

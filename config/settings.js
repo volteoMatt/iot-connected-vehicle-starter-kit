@@ -11,19 +11,23 @@
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
- *   Bryan Boyd - Initial implementation 
+ *   Bryan Boyd - Initial implementation
  *******************************************************************************/
 
 var config = {
 	iot_deviceType: "gateway",     // replace with your deviceType
 	iot_deviceOrg: "ojlfxw",       // replace with your IoT Foundation organization
-	iot_deviceId: "geospacial01", 
+	iot_deviceId: "geospacial01",
 	iot_token: "H4zG&ab4zdsi(m*FWh",
 	iot_auth_method: "authToken",
+  iot_apiKey: "a-ojlfxw-hsyfp5yfxv",
+  iot_apiToken: "*1RrG_r*n_bbqXP@H!",
 
 	// these topics will be used by Geospatial Analytics
 	notifyTopic: "iot-2/type/api/id/geospatial/cmd/geoAlert/fmt/json",
-	inputTopic: "iot-2/type/vehicle/id/+/evt/telemetry/fmt/json"
+	inputTopic: "iot-2/type/vehicle/id/+/evt/telemetry/fmt/json",
+  vehicleApi: "https://developer.trimet.org/ws/v2/vehicles?",
+  appId: "3C51B99B07D7A286055D3203C"
 };
 
 try {

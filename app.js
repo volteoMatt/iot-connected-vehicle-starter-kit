@@ -37,9 +37,7 @@ var telemetryTopic = "telemetry";
 //var telemetryTopic = "iot-2/evt/telemetry/fmt/json";
 
 //trimet api and app ID
-var vehicleApi = "https://developer.trimet.org/ws/v2/vehicles?";
-var appId = "3C51B99B07D7A286055D3203C";
-var allVehiclesUrl = vehicleApi + "appID=" + appId;
+var allVehiclesUrl = settings.vehicleApi + "appID=" + settings.appId;
 
 var config = {
     "org" : org,
@@ -56,25 +54,18 @@ deviceClient.connect();
 //connect to iotf and publish trimet data
 deviceClient.on('connect', function () {
   console.log('mqtt connected');
-  getVehicleIds(allVehiclesUrl);
+  init();
 });
 
 deviceClient.on("error", function (err) {
     console.log("Error : "+err);
 });
 
-function getVehiclePayload(info) {
-	var vehicles = [];
-    var allVehicles = info.resultSet.vehicle;
-    
-	for (var i=0; i<allVehicles.length; i++) {
-		vehicleId = info.resultSet.vehicle[i].vehicleID;
-		
-		if ( vehicleId < 200 ) {
-			vehicles.push(info.resultSet.vehicle[i]);
-		}
-	}
-	return vehicles;
+function init() {
+  setInterval(function() {
+    getVehicleIds(allVehiclesUrl);
+  }, 10000);
+  getVehicleIds(allVehiclesUrl);
 }
 
 function getVehicleIds(url) {
@@ -88,7 +79,21 @@ function getVehicleIds(url) {
 	publishVehicleData(vehicles);
   });
 }
-				
+
+function getVehiclePayload(info) {
+	var vehicles = [];
+    var allVehicles = info.resultSet.vehicle;
+
+	for (var i=0; i<allVehicles.length; i++) {
+		vehicleId = info.resultSet.vehicle[i].vehicleID;
+
+		if ( vehicleId < 200 ) {
+			vehicles.push(info.resultSet.vehicle[i]);
+		}
+	}
+	return vehicles;
+}
+
 function getVehicleData(vehicleData) {
 	try {
 		// URL of the Trimet API
@@ -100,9 +105,12 @@ function getVehicleData(vehicleData) {
 		var type = vehicleData.type;
 		var description = vehicleData.signMessageLong;
 
-		var vehicleData = {"id": vehicleId, "name": name, 'lng': lng, "lat": lat, "heading": heading, "description": description, "type": type};
+    // NOTE: we assume the color of the line is the first word in the signMessage
+    var color = vehicleData.signMessage.split(" ")[0].toLowerCase();
+
+		var vehicleData = {"id": vehicleId, "color": color, "name": name, 'lng': lng, "lat": lat, "heading": heading, "description": description, "type": type};
 		return vehicleData;
-	} 
+	}
 	catch(error) {
 		console.log('Error getting vehicle data: ' + error);
 	}
@@ -117,3 +125,33 @@ function publishVehicleData(vehicles) {
 		deviceClient.publish(telemetryTopic, "json", JSON.stringify(payload));
 	}
 }
+
+
+
+// setup middleware
+var express = require('express'),
+	https = require('https'),
+	path = require('path');
+var app = express();
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' === app.get('env')) {
+  app.use(express.errorHandler());
+}
+
+app.get("/credentials", function(req, res) {
+  res.send(settings);
+});
+
+http.createServer(app).listen(app.get('port'), function(){
+	console.log('Express server listening on port ' + app.get('port'));
+});

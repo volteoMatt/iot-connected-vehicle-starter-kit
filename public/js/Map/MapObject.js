@@ -11,17 +11,17 @@
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  *
  * Contributors:
- *   Bryan Boyd - Initial implementation 
+ *   Bryan Boyd - Initial implementation
  *******************************************************************************/
 
 /*****************************************************************************
- *                            
- *                              MapObjectSet         
+ *
+ *                              MapObjectSet
  *
  *   A set of MapObjects.  Those that inherit this object should implement
  *   the "sub" method, an onMessage callback that is used to populate/update
  *   MapObject's in the set.
- *                            
+ *
  ****************************************************************************/
 function MapObjectSet() {
 	this.objects = {};
@@ -50,6 +50,7 @@ MapObjectSet.prototype.init = function() {
 				ctx.objects[data.id].setLocation(data.lng + "," + data.lat);
 				ctx.objects[data.id].type = data.type;
 				ctx.objects[data.id].name = data.name;
+				ctx.objects[data.id].color = data.color;
 				ctx.objects[data.id].state = data.state;
 				ctx.objects[data.id].description = data.description;
 				ctx.objects[data.id].heading = data.heading;
@@ -91,11 +92,11 @@ MapObjectSet.prototype.reset = function() {
 
 
 /*****************************************************************************
- *                            
+ *
  *                                MapObject
  *
  *       Base class for all objects that will be displayed on the map.
- *                            
+ *
  ****************************************************************************/
 function MapObject(id) {
 	this.id = id;
@@ -126,12 +127,12 @@ function MapObject(id) {
 	//this.setLabel(this.id);
 }
 
-MapObject.prototype.setLocation = function(data) { 
+MapObject.prototype.setLocation = function(data) {
 	this.geo.lon = parseFloat(data.split(",")[0]);
 	this.geo.lat = parseFloat(data.split(",")[1]);
 }
 MapObject.prototype.setType = function(type) { this.type = type; }
-MapObject.prototype.setName = function(name) { 
+MapObject.prototype.setName = function(name) {
 	this.name = name;
 }
 MapObject.prototype.setDescription = function(description) { this.description = description; }
@@ -171,7 +172,7 @@ MapObject.prototype._getMessagesHTML = function() {
 	for (var i in this.messages) {
 		var d = this.messages[i];
 		html += [
-			"<div class='thingMessage' id='msg"+i+"'>", 
+			"<div class='thingMessage' id='msg"+i+"'>",
 				"<div class='thingMessageSubject'><b>" + d.msgSubject + "</b></div>",
 				"<div class='thingMessageDescription'>" + d.msgDescription + "<div class='thingMessageTime'>" + d.dateStr + " " + d.timeStr + "</div></div>",
 				"<div class='thingMessageActions'><a href='javascript:deleteMessage(" + this.id + ", " + i + ")'>Close</a>",
@@ -191,7 +192,7 @@ MapObject.prototype.pushMessage = function(msg) {
 }
 
 MapObject.prototype.getPopoverData = function() {
-	var data = { 
+	var data = {
 		left: {
 			title: "",
 			content: ""
@@ -209,10 +210,10 @@ MapObject.prototype.getPopoverData = function() {
 	var status_description = this.description;
 	var status_state = this.state;
 	var status_type = this.type;
-	
+
 	data.left.content += '<div><b>GPS:</b> <span class="value" id="status_location">'+status_location+'</span></div>';
-	data.left.content += '<div><b>Speed:</b> <span class="value" id="status_speed">'+this.speed+'</span></div>';
-	data.left.content += '<div><b>State:</b> <span class="value" id="status_state">'+this.state+'</span></div>';
+	data.left.content += (this.speed !== undefined) ? '<div><b>Speed:</b> <span class="value" id="status_speed">'+this.speed+'</span></div>' : "";
+	data.left.content += (this.state !== undefined) ? '<div><b>State:</b> <span class="value" id="status_state">'+this.state+'</span></div>' : "";
 	data.left.content += '<div><b>Type:</b> <span class="value" id="status_type">'+this.type+'</span></div><hr>';
 	for (var i in this.customProps) {
 		data.left.content += '<div><b>'+i+':</b> <span class="value" id="status_'+i+'">'+this.customProps[i]+'</span></div>';
@@ -286,7 +287,13 @@ MapObject.prototype.draw = function() {
 
 	var context = demo.ui.context;
 	var radius = this.getRadius();
-	if (this.type == "circle") {
+
+  var displayType = this.type;
+  if (displayType === "rail") {
+    displayType = "square";
+  }
+
+	if (displayType == "circle") {
 		context.save();
 		context.strokeStyle = "#111111";
 		context.fillStyle = this.getColor();
@@ -299,7 +306,7 @@ MapObject.prototype.draw = function() {
 		context.stroke();
 		context.fill();
 		context.restore();
-	} else if (this.type == "square") {
+	} else if (displayType == "square") {
 		context.save();
 		context.strokeStyle = "#111111";
 		context.fillStyle = this.getColor();
@@ -307,7 +314,7 @@ MapObject.prototype.draw = function() {
 		context.fillRect(this.pos.x - radius, this.pos.y - radius, radius*2+1, radius*2+1);
 		context.strokeRect(this.pos.x - radius, this.pos.y - radius, radius*2+1, radius*2+1);
 		context.restore();
-	} else if (this.type == "triangle") {
+	} else if (displayType == "triangle") {
 		context.save();
 		context.strokeStyle = "#111111";
 		context.fillStyle = this.getColor();
@@ -323,7 +330,7 @@ MapObject.prototype.draw = function() {
 		context.stroke();
 		context.fill();
 		context.restore();
-	} else if (this.type == "diamond") {
+	} else if (displayType == "diamond") {
 		context.save();
 		context.strokeStyle = "#111111";
 		context.fillStyle = this.getColor();
@@ -340,13 +347,13 @@ MapObject.prototype.draw = function() {
 		context.stroke();
 		context.fill();
 		context.restore();
-	} else if (Images[this.type]) {
-		var image = Images[this.type];
+	} else if (Images[displayType]) {
+		var image = Images[displayType];
 		var longestSide = Math.max(image.width, image.height);
 		var factor = radius*3 / longestSide;
 		var width = image.width * factor;
 		var height = image.height * factor;
-		if (this.type == "car") {
+		if (displayType == "car") {
 			context.save();
 			context.translate(this.pos.x, this.pos.y);
 			context.rotate((this.heading - 90) * Math.PI / 180);
